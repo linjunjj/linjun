@@ -1,0 +1,822 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/linjun/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/linjun/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/linjun/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/linjun/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Netty学习笔记（1）–Nett开发环境的搭建下载Neety软件包访问netty的官网http://netty.io/,从【download】这个按钮点击下载软件包， 下载之后，就解压 搭建netty应用工程 这里我们使用的编辑器是IDEA， （1）导入jar的方式来新建Netty工程 新建工程，将lib下的jar包加入新的工程中，  这样就搭建初始环境了， （2）通过Maven的方式新建Net">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty学习笔记（1）--Netty开发环境的搭建">
+<meta property="og:url" content="https://linjunjj.github.io/linjun/2017/09/26/Netty学习笔记（1）-Netty开发环境的搭建/index.html">
+<meta property="og:site_name" content="林俊的博客">
+<meta property="og:description" content="Netty学习笔记（1）–Nett开发环境的搭建下载Neety软件包访问netty的官网http://netty.io/,从【download】这个按钮点击下载软件包， 下载之后，就解压 搭建netty应用工程 这里我们使用的编辑器是IDEA， （1）导入jar的方式来新建Netty工程 新建工程，将lib下的jar包加入新的工程中，  这样就搭建初始环境了， （2）通过Maven的方式新建Net">
+<meta property="og:image" content="http://owxnr6n7r.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-27%2018.01.15.png">
+<meta property="og:image" content="http://owxnr6n7r.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-27%2021.08.06.png">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877sVXh.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876Z6U6.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876PRUv.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876rnoR.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_14347568775449.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877UQn2.jpg">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877JjkN.jpg">
+<meta property="og:updated_time" content="2019-05-15T15:03:08.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty学习笔记（1）--Netty开发环境的搭建">
+<meta name="twitter:description" content="Netty学习笔记（1）–Nett开发环境的搭建下载Neety软件包访问netty的官网http://netty.io/,从【download】这个按钮点击下载软件包， 下载之后，就解压 搭建netty应用工程 这里我们使用的编辑器是IDEA， （1）导入jar的方式来新建Netty工程 新建工程，将lib下的jar包加入新的工程中，  这样就搭建初始环境了， （2）通过Maven的方式新建Net">
+<meta name="twitter:image" content="http://owxnr6n7r.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-27%2018.01.15.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/linjun/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linjunjj.github.io/linjun/2017/09/26/Netty学习笔记（1）-Netty开发环境的搭建/"/>
+
+
+
+
+
+  <title> Netty学习笔记（1）--Netty开发环境的搭建 | 林俊的博客 </title>
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband">
+    <a href="https://github.com/you"><img style="position: absolute;
+     top: 0; left: 0; border: 0;"
+     src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+     alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    </div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/linjun/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">林俊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一次偶然的成功，比一次必然的失败更可怕</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/linjun/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-timeline">
+          <a href="/linjun/timeline" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-java">
+          <a href="/linjun/java" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br />
+            
+            java
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-javaweb">
+          <a href="/linjun/javaweb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-users"></i> <br />
+            
+            javaweb
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/linjun/android" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-android"></i> <br />
+            
+            android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-golang">
+          <a href="/linjun/golang" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-google"></i> <br />
+            
+            golang
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tensorflow">
+          <a href="/linjun/tensorflow" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-laptop"></i> <br />
+            
+            tensorflow
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-inspiration">
+          <a href="/linjun/inspiration" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-diamond"></i> <br />
+            
+            人生感悟
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/linjun/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://linjunjj.github.io/linjun/linjun/2017/09/26/Netty学习笔记（1）-Netty开发环境的搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/linjun/icon/icon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林俊的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Netty学习笔记（1）--Netty开发环境的搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T22:17:30+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Netty学习笔记（1）–Nett开发环境的搭建"><a href="#Netty学习笔记（1）–Nett开发环境的搭建" class="headerlink" title="Netty学习笔记（1）–Nett开发环境的搭建"></a>Netty学习笔记（1）–Nett开发环境的搭建</h1><h3 id="下载Neety软件包"><a href="#下载Neety软件包" class="headerlink" title="下载Neety软件包"></a>下载Neety软件包</h3><p>访问netty的官网<a href="http://netty.io/,从【download】这个按钮点击下载软件包，" target="_blank" rel="external">http://netty.io/,从【download】这个按钮点击下载软件包，</a><br><img src="http://owxnr6n7r.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-27%2018.01.15.png" alt=""><br> 下载之后，就解压</p>
+<h3 id="搭建netty应用工程"><a href="#搭建netty应用工程" class="headerlink" title="搭建netty应用工程"></a>搭建netty应用工程</h3><p> 这里我们使用的编辑器是IDEA，</p>
+<h3 id="（1）导入jar的方式来新建Netty工程"><a href="#（1）导入jar的方式来新建Netty工程" class="headerlink" title="（1）导入jar的方式来新建Netty工程"></a>（1）导入jar的方式来新建Netty工程</h3><p> 新建工程，将lib下的jar包加入新的工程中，<br> <img src="http://owxnr6n7r.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-27%2021.08.06.png" alt=""><br> 这样就搭建初始环境了，</p>
+<h3 id="（2）通过Maven的方式新建Netty工程"><a href="#（2）通过Maven的方式新建Netty工程" class="headerlink" title="（2）通过Maven的方式新建Netty工程"></a>（2）通过Maven的方式新建Netty工程</h3><p> 将刚刚生成的项目包导入到， java-idea 中，具体的操作流程如下图所示</p>
+<p> 选择 New –&gt; Module from Existing Sources<br><img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877sVXh.jpg" alt=""><br> <img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876Z6U6.jpg" alt=""><br> <img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876PRUv.jpg" alt=""><br>   <img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756876rnoR.jpg" alt=""><br> <img src="http://blog.chinaunix.net/attachment/201506/20/28595538_14347568775449.jpg" alt=""></p>
+<ol>
+<li><p>好的，现在项目包已经被导入进 IDE 开发环境中了， 我们来修改一下 pom.xml 的文件，在依赖标签中，<br>按照一定格式要求，写入对 netty 软件的需求。Java- idea 根据 pom.xml 文件来自动从网上下载对应的资源，<br>并将该资源存放到本地的资源库中，在我的计算机中，maven 的资源库路径位于 /root/.m2/ 下面<br><img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877UQn2.jpg" alt=""></p>
+</li>
+<li><p>在执行上面操作之后，就会发现在 IDE 下面有下载 netty 软件包的进度条，等其完成之后，我们打开位于<br> src/main/App.java ， 在package …. 一行下面写入 </p>
+<p> import io.netty.bootstrap.Boostrap ; </p>
+<p>语句检测一下编译 语句，检测一下编译环境是否会报错，如果不会报错的话，则说明该 netty 文件包已经成功的通过修改 maven 文件而被引入到该项目开发环境中的.<br><img src="http://blog.chinaunix.net/attachment/201506/20/28595538_1434756877JjkN.jpg" alt=""></p>
+</li>
+</ol>
+<p> add 6/21<br> 如果想要增加 spring-framework 依赖的话<br> 在 pom.xml 中添加</p>
+<p> 点击(此处)折叠或打开<br> <dependency><br>       <groupid>org.springframework</groupid><br>       <artifactid>spring-context</artifactid><br>       <version>3.1.1.RELEASE</version><br>     </dependency><br> IDE 将会自动的从官网”org.springframwork” 中下载对应版本的文件包，并将其加载到当前的项目中</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linjun/2017/08/29/暑假两个月实习心得/" rel="next" title="暑假两个月实习心得">
+                <i class="fa fa-chevron-left"></i> 暑假两个月实习心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linjun/2017/09/27/Netty学习笔记（2）-TCP粘包-拆包/" rel="prev" title="Netty学习笔记（2）---TCP粘包/拆包">
+                Netty学习笔记（2）---TCP粘包/拆包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/linjun/icon/icon.png"
+               alt="林俊" />
+          <p class="site-author-name" itemprop="name">林俊</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序员之所以犯错误，不是因为他们不懂，而是因为他们自以为什么都懂!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/linjun/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linjunjj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/linjunjj" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Netty学习笔记（1）–Nett开发环境的搭建"><span class="nav-number">1.</span> <span class="nav-text">Netty学习笔记（1）–Nett开发环境的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Neety软件包"><span class="nav-number">1.0.1.</span> <span class="nav-text">下载Neety软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建netty应用工程"><span class="nav-number">1.0.2.</span> <span class="nav-text">搭建netty应用工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）导入jar的方式来新建Netty工程"><span class="nav-number">1.0.3.</span> <span class="nav-text">（1）导入jar的方式来新建Netty工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）通过Maven的方式新建Netty工程"><span class="nav-number">1.0.4.</span> <span class="nav-text">（2）通过Maven的方式新建Netty工程</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林俊</span>
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/linjun/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/linjun/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/linjun/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/linjun/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/linjun/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/linjun/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/linjun/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/linjun/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/linjun/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</html>
