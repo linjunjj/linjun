@@ -85,7 +85,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Golong," />
 
 
 
@@ -101,16 +101,17 @@
 
 
 
-<meta name="description" content="程序员之所以犯错误，不是因为他们不懂，而是因为他们自以为什么都懂!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://www.linjun.ltd/categories/index.html">
+<meta name="description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
+<meta name="keywords" content="Golong">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gin源码分析笔记">
+<meta property="og:url" content="http://www.linjun.ltd/2019/05/18/gin源码分析笔记/index.html">
 <meta property="og:site_name" content="林俊的博客">
-<meta property="og:description" content="程序员之所以犯错误，不是因为他们不懂，而是因为他们自以为什么都懂!">
-<meta property="og:updated_time" content="2019-05-16T15:09:33.454Z">
+<meta property="og:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
+<meta property="og:updated_time" content="2019-05-18T15:27:21.458Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="程序员之所以犯错误，不是因为他们不懂，而是因为他们自以为什么都懂!">
+<meta name="twitter:title" content="gin源码分析笔记">
+<meta name="twitter:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
 
 
 
@@ -138,19 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://www.linjun.ltd/categories/"/>
+  <link rel="canonical" href="http://www.linjun.ltd/2019/05/18/gin源码分析笔记/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    categories | 林俊的博客
-  
-</title>
+  <title> gin源码分析笔记 | 林俊的博客 </title>
   
   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   
@@ -178,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband">
     <a href="https://github.com/you"><img style="position: absolute;
      top: 0; left: 0; border: 0;"
@@ -328,18 +323,163 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.linjun.ltd/2019/05/18/gin源码分析笔记/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/icon/icon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林俊的博客">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                gin源码分析笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T22:13:42+08:00">
+                2019-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-    
+      
+
+      
+        <p>gin源码分析 render模块</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">type</span> Render <span class="keyword">interface</span> &#123;</div><div class="line">	Render(http.ResponseWriter) error</div><div class="line">	WriteContentType(w http.ResponseWriter)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeContentType</span><span class="params">(w http.ResponseWriter, value []<span class="keyword">string</span>)</span></span> &#123;</div><div class="line">	header := w.Header()</div><div class="line">	<span class="keyword">if</span> val := header[<span class="string">"Content-Type"</span>]; <span class="built_in">len</span>(val) == <span class="number">0</span> &#123;</div><div class="line">		header[<span class="string">"Content-Type"</span>] = value</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Rendor接口</strong><br>render两个接口<br>Render 承接状态<br>WriteContentType 写入的内容类型</p>
+<p>writeContentType验证写入数据类型</p>
+<p>Render有8中需要处理的数据类型</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Golong/" rel="tag"># Golong</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/16/2019-5-16/" rel="next" title="2019-5-16">
+                <i class="fa fa-chevron-left"></i> 2019-5-16
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -575,6 +715,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
