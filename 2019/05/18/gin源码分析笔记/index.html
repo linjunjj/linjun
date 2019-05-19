@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://www.linjun.ltd/2019/05/18/gin源码分析笔记/index.html">
 <meta property="og:site_name" content="林俊的博客">
 <meta property="og:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
-<meta property="og:updated_time" content="2019-05-18T15:27:21.458Z">
+<meta property="og:updated_time" content="2019-05-19T15:10:26.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gin源码分析笔记">
 <meta name="twitter:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
@@ -413,7 +413,11 @@
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">type</span> Render <span class="keyword">interface</span> &#123;</div><div class="line">	Render(http.ResponseWriter) error</div><div class="line">	WriteContentType(w http.ResponseWriter)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeContentType</span><span class="params">(w http.ResponseWriter, value []<span class="keyword">string</span>)</span></span> &#123;</div><div class="line">	header := w.Header()</div><div class="line">	<span class="keyword">if</span> val := header[<span class="string">"Content-Type"</span>]; <span class="built_in">len</span>(val) == <span class="number">0</span> &#123;</div><div class="line">		header[<span class="string">"Content-Type"</span>] = value</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>Rendor接口</strong><br>render两个接口<br>Render 承接状态<br>WriteContentType 写入的内容类型</p>
 <p>writeContentType验证写入数据类型</p>
-<p>Render有8中需要处理的数据类型</p>
+<p>Render有8中需要处理的数据类型 </p>
+<blockquote>
+<p>data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">type Data struct &#123;</div><div class="line">	ContentType string</div><div class="line">	Data        []byte</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>html<br>json  json.Marshal(r.Data)<br>mgspack<br>redirect<br>test<br>xml<br>yaml</p>
+</blockquote>
 
       
     </div>
