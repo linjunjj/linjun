@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://www.linjun.ltd/2019/05/18/gin源码分析笔记/index.html">
 <meta property="og:site_name" content="林俊的博客">
 <meta property="og:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
-<meta property="og:updated_time" content="2019-05-20T15:21:26.822Z">
+<meta property="og:updated_time" content="2019-05-26T15:32:45.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gin源码分析笔记">
 <meta name="twitter:description" content="gin源码分析 render模块 123456789101112type Render interface &amp;#123;	Render(http.ResponseWriter) error	WriteContentType(w http.ResponseWriter)&amp;#125;func writeContentType(w http.ResponseWriter, value []string)">
@@ -435,6 +435,7 @@
 <p>方法： kindOfData  返回数值类型<br>lazyinit -&gt; Engine  ValidateStruct方法</p>
 <p>gin包中的</p>
 <p>utils.go</p>
+<p>包含这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">type Context struct &#123;</div><div class="line">	writermem responseWriter</div><div class="line">	Request   *http.Request</div><div class="line">	Writer    ResponseWriter</div><div class="line"></div><div class="line">	Params   Params</div><div class="line">	handlers HandlersChain</div><div class="line">	index    int8</div><div class="line"></div><div class="line">	engine *Engine</div><div class="line"></div><div class="line">	// Keys is a key/value pair exclusively for the context of each request.</div><div class="line">	Keys map[string]interface&#123;&#125;</div><div class="line"></div><div class="line">	// Errors is a list of errors attached to all the handlers/middlewares who used this context.</div><div class="line">	Errors errorMsgs</div><div class="line"></div><div class="line">	// Accepted defines a list of manually accepted formats for content negotiation.</div><div class="line">	Accepted []string</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
