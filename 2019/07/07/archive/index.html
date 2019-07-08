@@ -1,0 +1,784 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="archive tar包tar包实现了tar格式压缩文件的读取，  common.go  Varable12345678910var (	ErrHeader          = errors.New(&quot;archive/tar: invalid tar header&quot;)	ErrWriteTooLong    = errors.New(&quot;archive/tar: write too long&quot;)	E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="archive">
+<meta property="og:url" content="http://www.linjun.ltd/2019/07/07/archive/index.html">
+<meta property="og:site_name" content="林俊的博客">
+<meta property="og:description" content="archive tar包tar包实现了tar格式压缩文件的读取，  common.go  Varable12345678910var (	ErrHeader          = errors.New(&quot;archive/tar: invalid tar header&quot;)	ErrWriteTooLong    = errors.New(&quot;archive/tar: write too long&quot;)	E">
+<meta property="og:updated_time" content="2019-07-07T15:40:46.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="archive">
+<meta name="twitter:description" content="archive tar包tar包实现了tar格式压缩文件的读取，  common.go  Varable12345678910var (	ErrHeader          = errors.New(&quot;archive/tar: invalid tar header&quot;)	ErrWriteTooLong    = errors.New(&quot;archive/tar: write too long&quot;)	E">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.linjun.ltd/2019/07/07/archive/"/>
+
+
+
+
+
+  <title> archive | 林俊的博客 </title>
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband">
+    <a href="https://github.com/you"><img style="position: absolute;
+     top: 0; left: 0; border: 0;"
+     src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+     alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    </div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">林俊的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一次偶然的成功，比一次必然的失败更可怕</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-timeline">
+          <a href="/timeline" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-golang">
+          <a href="/golang" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-google"></i> <br />
+            
+            golang
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.linjun.ltd/2019/07/07/archive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/icon/icon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林俊的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                archive
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T21:30:58+08:00">
+                2019-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang源码-archive/" itemprop="url" rel="index">
+                    <span itemprop="name">golang源码 archive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="archive-tar包"><a href="#archive-tar包" class="headerlink" title="archive tar包"></a>archive tar包</h2><p>tar包实现了tar格式压缩文件的读取，</p>
+<blockquote>
+<p>common.go</p>
+</blockquote>
+<h3 id="Varable"><a href="#Varable" class="headerlink" title="Varable"></a>Varable</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> (</div><div class="line">	ErrHeader          = errors.New(<span class="string">"archive/tar: invalid tar header"</span>)</div><div class="line">	ErrWriteTooLong    = errors.New(<span class="string">"archive/tar: write too long"</span>)</div><div class="line">	ErrFieldTooLong    = errors.New(<span class="string">"archive/tar: header field too long"</span>)</div><div class="line">	ErrWriteAfterClose = errors.New(<span class="string">"archive/tar: write after close"</span>)</div><div class="line">	errMissData        = errors.New(<span class="string">"archive/tar: sparse file references non-existent data"</span>)</div><div class="line">	errUnrefData       = errors.New(<span class="string">"archive/tar: sparse file contains unreferenced data"</span>)</div><div class="line">	errWriteHole       = errors.New(<span class="string">"archive/tar: write non-NUL byte in sparse hole"</span>)</div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> (</div><div class="line">	<span class="comment">// Type '0' indicates a regular file.</span></div><div class="line">	TypeReg  = <span class="string">'0'</span> 普通文件</div><div class="line">	TypeRegA = <span class="string">'\x00'</span> <span class="comment">// Deprecated: Use TypeReg instead.</span></div><div class="line"></div><div class="line">	<span class="comment">// Type '1' to '6' are header-only flags and may not have a data body.</span></div><div class="line">	TypeLink    = <span class="string">'1'</span> <span class="comment">// Hard link 硬连接</span></div><div class="line">	TypeSymlink = <span class="string">'2'</span> <span class="comment">// Symbolic link 符号连接。</span></div><div class="line">	TypeChar    = <span class="string">'3'</span> <span class="comment">// Character device node 字符设备节点</span></div><div class="line">	TypeBlock   = <span class="string">'4'</span> <span class="comment">// Block device node 块设备节点</span></div><div class="line">	TypeDir     = <span class="string">'5'</span> <span class="comment">// Directory 目录</span></div><div class="line">	TypeFifo    = <span class="string">'6'</span> <span class="comment">// FIFO node 队列节点</span></div><div class="line"></div><div class="line">	<span class="comment">// Type '7' is reserved.    保留位</span></div><div class="line">	TypeCont = <span class="string">'7'</span></div><div class="line"></div><div class="line">	<span class="comment">// Type 'x' is used by the PAX format to store key-value records that</span></div><div class="line">	<span class="comment">// are only relevant to the next file.</span></div><div class="line">	<span class="comment">// This package transparently handles these types.</span></div><div class="line">	TypeXHeader = <span class="string">'x'</span> 扩展头</div><div class="line"></div><div class="line">	<span class="comment">// Type 'g' is used by the PAX format to store key-value records that</span></div><div class="line">	<span class="comment">// are relevant to all subsequent files.</span></div><div class="line">	<span class="comment">// This package only supports parsing and composing such headers,</span></div><div class="line">	<span class="comment">// but does not currently support persisting the global state across files.</span></div><div class="line">	TypeXGlobalHeader = <span class="string">'g'</span>  全局扩展头</div><div class="line"></div><div class="line">	<span class="comment">// Type 'S' indicates a sparse file in the GNU format.</span></div><div class="line">	TypeGNUSparse = <span class="string">'S'</span>  稀疏文件</div><div class="line"></div><div class="line">	<span class="comment">// Types 'L' and 'K' are used by the GNU format for a meta file</span></div><div class="line">	<span class="comment">// used to store the path or link name for the next file.</span></div><div class="line">	<span class="comment">// This package transparently handles these types.</span></div><div class="line">	TypeGNULongName = <span class="string">'L'</span> 下一个文件记录长文字</div><div class="line">	TypeGNULongLink = <span class="string">'K'</span> 下一个记录具有长文字的文件</div><div class="line"></div><div class="line"><span class="comment">// Keywords for PAX extended header records.PAX扩展标头记录的关键字</span></div><div class="line"><span class="keyword">const</span> (</div><div class="line">	paxNone     = <span class="string">""</span> <span class="comment">// Indicates that no PAX key is suitable</span></div><div class="line">	paxPath     = <span class="string">"path"</span></div><div class="line">	paxLinkpath = <span class="string">"linkpath"</span></div><div class="line">	paxSize     = <span class="string">"size"</span></div><div class="line">	paxUid      = <span class="string">"uid"</span></div><div class="line">	paxGid      = <span class="string">"gid"</span></div><div class="line">	paxUname    = <span class="string">"uname"</span></div><div class="line">	paxGname    = <span class="string">"gname"</span></div><div class="line">	paxMtime    = <span class="string">"mtime"</span></div><div class="line">	paxAtime    = <span class="string">"atime"</span></div><div class="line">	paxCtime    = <span class="string">"ctime"</span>   <span class="comment">// Removed from later revision of PAX spec, but was valid</span></div><div class="line">	paxCharset  = <span class="string">"charset"</span> <span class="comment">// Currently unused</span></div><div class="line">	paxComment  = <span class="string">"comment"</span> <span class="comment">// Currently unused</span></div><div class="line"></div><div class="line">	paxSchilyXattr = <span class="string">"SCHILY.xattr."</span></div><div class="line"></div><div class="line">	<span class="comment">// Keywords for GNU sparse files in a PAX extended header.</span></div><div class="line">	paxGNUSparse          = <span class="string">"GNU.sparse."</span></div><div class="line">	paxGNUSparseNumBlocks = <span class="string">"GNU.sparse.numblocks"</span></div><div class="line">	paxGNUSparseOffset    = <span class="string">"GNU.sparse.offset"</span></div><div class="line">	paxGNUSparseNumBytes  = <span class="string">"GNU.sparse.numbytes"</span></div><div class="line">	paxGNUSparseMap       = <span class="string">"GNU.sparse.map"</span></div><div class="line">	paxGNUSparseName      = <span class="string">"GNU.sparse.name"</span></div><div class="line">	paxGNUSparseMajor     = <span class="string">"GNU.sparse.major"</span></div><div class="line">	paxGNUSparseMinor     = <span class="string">"GNU.sparse.minor"</span></div><div class="line">	paxGNUSparseSize      = <span class="string">"GNU.sparse.size"</span></div><div class="line">	paxGNUSparseRealSize  = <span class="string">"GNU.sparse.realsize"</span></div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="type-Header"><a href="#type-Header" class="headerlink" title="type Header"></a>type Header</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">type Header struct &#123;</div><div class="line">	// Typeflag is the type of header entry.</div><div class="line">	// The zero value is automatically promoted to either TypeReg or TypeDir</div><div class="line">	// depending on the presence of a trailing slash in Name.</div><div class="line">	Typeflag byte</div><div class="line"></div><div class="line">	Name     string // Name of file entry  记录头域的文件名</div><div class="line">	Linkname string // Target name of link (valid for TypeLink or TypeSymlink)</div><div class="line"></div><div class="line">	Size  int64  // Logical file size in bytes  大小</div><div class="line">	Mode  int64  // Permission and mode bits 权限和模式</div><div class="line">	Uid   int    // User ID of owner </div><div class="line">	Gid   int    // Group ID of owner</div><div class="line">	Uname string // User name of owner</div><div class="line">	Gname string // Group name of owner</div><div class="line"></div><div class="line">	// If the Format is unspecified, then Writer.WriteHeader rounds ModTime</div><div class="line">	// to the nearest second and ignores the AccessTime and ChangeTime fields.</div><div class="line">	//</div><div class="line">	// To use AccessTime or ChangeTime, specify the Format as PAX or GNU.</div><div class="line">	// To use sub-second resolution, specify the Format as PAX.</div><div class="line">	ModTime    time.Time // Modification time</div><div class="line">	AccessTime time.Time // Access time (requires either PAX or GNU support)</div><div class="line">	ChangeTime time.Time // Change time (requires either PAX or GNU support)</div><div class="line"></div><div class="line">	Devmajor int64 // Major device number (valid for TypeChar or TypeBlock)字符设备</div><div class="line">	Devminor int64 // Minor device number (valid for TypeChar or TypeBlock)</div><div class="line"></div><div class="line">	// Xattrs stores extended attributes as PAX records under the</div><div class="line">	// &quot;SCHILY.xattr.&quot; namespace.</div><div class="line">	//</div><div class="line">	// The following are semantically equivalent:</div><div class="line">	//  h.Xattrs[key] = value</div><div class="line">	//  h.PAXRecords[&quot;SCHILY.xattr.&quot;+key] = value</div><div class="line">	//</div><div class="line">	// When Writer.WriteHeader is called, the contents of Xattrs will take</div><div class="line">	// precedence over those in PAXRecords.</div><div class="line">	//</div><div class="line">	// Deprecated: Use PAXRecords instead.</div><div class="line">	Xattrs map[string]string  </div><div class="line"></div><div class="line">	// PAXRecords is a map of PAX extended header records.</div><div class="line">	//</div><div class="line">	// User-defined records should have keys of the following form:</div><div class="line">	//	VENDOR.keyword</div><div class="line">	// Where VENDOR is some namespace in all uppercase, and keyword may</div><div class="line">	// not contain the &apos;=&apos; character (e.g., &quot;GOLANG.pkg.version&quot;).</div><div class="line">	// The key and value should be non-empty UTF-8 strings.</div><div class="line">	//</div><div class="line">	// When Writer.WriteHeader is called, PAX records derived from the</div><div class="line">	// other fields in Header take precedence over PAXRecords.</div><div class="line">	PAXRecords map[string]string  Header中的其他字段优先于PAXRecords。</div><div class="line"></div><div class="line">	// Format specifies the format of the tar header.</div><div class="line">	//</div><div class="line">	// This is set by Reader.Next as a best-effort guess at the format.</div><div class="line">	// Since the Reader liberally reads some non-compliant files,</div><div class="line">	// it is possible for this to be FormatUnknown.</div><div class="line">	//</div><div class="line">	// If the format is unspecified when Writer.WriteHeader is called,</div><div class="line">	// then it uses the first format (in the order of USTAR, PAX, GNU)</div><div class="line">	// capable of encoding this Header (see Format).</div><div class="line">	Format Format 格式</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="func-endOffset"><a href="#func-endOffset" class="headerlink" title="func endOffset"></a>func endOffset</h4><blockquote>
+<p>func (s sparseEntry) endOffset() int64</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/18/gin源码分析笔记/" rel="next" title="gin源码分析笔记">
+                <i class="fa fa-chevron-left"></i> gin源码分析笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/icon/icon.png"
+               alt="林俊" />
+          <p class="site-author-name" itemprop="name">林俊</p>
+           
+              <p class="site-description motion-element" itemprop="description">程序员之所以犯错误，不是因为他们不懂，而是因为他们自以为什么都懂!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linjunjj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/linjunjj" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#archive-tar包"><span class="nav-number">1.</span> <span class="nav-text">archive tar包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Varable"><span class="nav-number">1.1.</span> <span class="nav-text">Varable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Constants"><span class="nav-number">1.2.</span> <span class="nav-text">Constants</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type-Header"><span class="nav-number">1.3.</span> <span class="nav-text">type Header</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#func-endOffset"><span class="nav-number">1.3.1.</span> <span class="nav-text">func endOffset</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林俊</span>
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</html>
